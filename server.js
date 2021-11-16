@@ -13,9 +13,17 @@ const mongoose = require('mongoose')
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/pizza-hunt', {
 //   useFindAndModify: false,
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 })
+
+mongoose.connection.on('connected', () =>
+  console.log('Connected to MongoDB Endpoint')
+);
+
+mongoose.connection.on('error', (err) =>
+  console.log(`Mongoose default connection error: ${err}`)
+);
 
 mongoose.set('debug', true)
 
