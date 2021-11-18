@@ -6,7 +6,6 @@ const getPizzaList = () => {
     .then(pizzaListArr => {
       console.log(pizzaListArr)
       console.log('pizzaListArr')
-      debugger
       pizzaListArr.forEach(printPizza);
     })
     .catch(err => {
@@ -39,7 +38,6 @@ const printPizza = ({ _id, pizzaName, toppings, size, commentCount, createdBy, c
     </div>
   `;
   $pizzaList.innerHTML += pizzaCard;
-  debugger
 };
 
 getPizzaList();
