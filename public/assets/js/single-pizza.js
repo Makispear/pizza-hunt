@@ -20,7 +20,6 @@ function getPizza() {
       if (!response.ok) {
         throw new Error({ message: 'Something went wrong!' });
       }
-
       return response.json();
     })
     .then(printPizza)
@@ -58,7 +57,6 @@ function printComment(comment) {
   const commentDiv = document.createElement('div');
   commentDiv.classList.add('my-2', 'card', 'p-2', 'w-100', 'text-dark', 'rounded');
 
-  debugger
   const commentContent = `
       <h5 class="text-dark">${comment.writtenBy} commented on ${comment.createdAt}:</h5>
       <p>${comment.commentBody}</p>
@@ -85,7 +83,6 @@ function printComment(comment) {
         <button class="mt-2 btn display-block w-100">Add Reply</button>
       </form>
   `;
-
   commentDiv.innerHTML = commentContent;
   $commentSection.prepend(commentDiv);
 }
@@ -151,7 +148,33 @@ function handleNewReplySubmit(event) {
   }
 
   const formData = { writtenBy, replyBody };
+
+  fetch(`/api/comments/${pizzaId}/${commentId}`, {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formData)
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Something went wrong!');
+      }
+      response.json();
+    })
+    .then(commentResponse => {
+      console.log(commentResponse);
+      location.reload();
+    })
+    .catch(err => {
+      console.log(err);
+    });
 }
+
+$backBtn.addEventListener('click', function() {
+  window.history.back();
+});
 
 $backBtn.addEventListener('click', function() {
   window.history.back();
