@@ -83,4 +83,4 @@ function uploadPizza() {
 }
 
 // listen for app coming back online
-window.addEventListener('')
+window.addEventListener('online', uploadPizza)
